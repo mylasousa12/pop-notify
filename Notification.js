@@ -1,5 +1,4 @@
 /**
- * 1°) A notificação(li) deve ter um id único.
  * 2º) O botão de fechar deve sumir apenas com a sua notificação de acordo com esse id único.
  * 3º) Programar as posições, quando criar uma notificação deve ser possível escolher a posição.
  * 4º) Implementar a barra de progresso. A barra de progresso deve ser sincronizada com o momento que a notificação será removida. Tentar usar o efeito "fade".
@@ -22,13 +21,8 @@ export default class Notification {
          return new Notification(message, 'info', duration);
      }
 
+    // o construtor é chamado quando faz o new
     constructor(message, type, duration) {
-         if (!window.hasOwnProperty('notification_id')) {
-             window.notification_id = 0;
-         } else {
-             window.notification_id++;
-         }
-
         this.notificationList = document.getElementById('notification_list');
 
         if (this.notificationList === null) {
@@ -39,16 +33,18 @@ export default class Notification {
         }
 
         this.notification = document.createElement('li');
-        this.notification.classList.add('notification', type, duration.toString());
+        this.notification.classList.add('notification', type);
+
+        const div = document.createElement('div');
 
         // Create notification type icon
-        this.notification.appendChild(this.mountNotificationTypeIcon(type));
+        div.appendChild(this.mountNotificationTypeIcon(type));
 
         // Create notification text element
-        const textBox = document.createElement('span');
+        const textBox = document.createElement('p');
         textBox.classList.add('msg');
-        textBox.innerText = message;
-        this.notification.appendChild(textBox);
+        textBox.innerText = message; // texto dentro da tag
+        div.appendChild(textBox);
         this.notification.id = window.notification_id;
 
         // Create notification close button
@@ -62,7 +58,14 @@ export default class Notification {
         });
 
         this.notification.appendChild(closeButton);
+
+        //Create progress bar
+        const progressBar = document.createElement('hr');
+
+
+
     }
+
 
     mountNotificationTypeIcon(type) {
          const typeIcon = document.createElement('i');
