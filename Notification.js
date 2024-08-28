@@ -45,24 +45,21 @@ export default class Notification {
         textBox.classList.add('msg');
         textBox.innerText = message; // texto dentro da tag
         div.appendChild(textBox);
-        this.notification.id = window.notification_id;
 
         // Create notification close button
         const closeButton = document.createElement('i');
         closeButton.classList.add('close-btn', 'bx', 'bx-x');
-        closeButton.dataset.notification_id = window.notification_id;
 
-        closeButton.addEventListener('click', function (event) {
-            console.log(event.target)
-            document.getElementById(event.target.dataset.notification_id).remove();
+        closeButton.addEventListener('click',  (event) => {
+            this.notification.remove()
         });
 
-        this.notification.appendChild(closeButton);
+        div.appendChild(closeButton);
+        this.notification.appendChild(div);
 
         //Create progress bar
         const progressBar = document.createElement('hr');
-
-
+        this.notification.appendChild(progressBar);
 
     }
 
