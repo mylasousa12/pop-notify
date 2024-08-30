@@ -24,6 +24,7 @@ export default class Notification {
     // o construtor é chamado quando faz o new
     constructor(message, type, duration) {
         this.notificationList = document.getElementById('notification_list');
+        this.duration = duration;
 
         if (this.notificationList === null) {
             this.notificationList = document.createElement('ul');
@@ -60,6 +61,8 @@ export default class Notification {
         //Create progress bar
         const progressBar = document.createElement('hr');
         this.notification.appendChild(progressBar);
+        progressBar.style.animationDuration = `${parseInt(duration) / 1000}s`;
+
 
     }
 
@@ -108,5 +111,11 @@ export default class Notification {
 
     fire() {
         this.notificationList.appendChild(this.notification);
+        setTimeout(()=> {
+           this.notification.classList.add('fade-out');
+            setTimeout(()=> {
+                this.notification.remove();
+            }, 700);
+        }, this.duration);
     }
 }
