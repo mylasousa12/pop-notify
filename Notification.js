@@ -1,25 +1,20 @@
-/**
- * 2º) O botão de fechar deve sumir apenas com a sua notificação de acordo com esse id único.
- * 3º) Programar as posições, quando criar uma notificação deve ser possível escolher a posição.
- * 4º) Implementar a barra de progresso. A barra de progresso deve ser sincronizada com o momento que a notificação será removida. Tentar usar o efeito "fade".
- * 5º) Possibilitar ter notificações em lista ou não.
- */
+
 export default class Notification {
-     static success(message, duration = 9000) {
-         return new Notification(message, 'success', duration);
-     }
+    static success(message, duration = 9000) {
+        return new Notification(message, 'success', duration);
+    }
 
-     static fail(message, duration = 9000) {
-         return new Notification(message, 'fail', duration);
-     }
+    static fail(message, duration = 9000) {
+        return new Notification(message, 'fail', duration);
+    }
 
-     static warning(message, duration = 9000) {
-         return new Notification(message, 'warning', duration);
-     }
+    static warning(message, duration = 9000) {
+        return new Notification(message, 'warning', duration);
+    }
 
-     static info(message, duration = 9000) {
-         return new Notification(message, 'info', duration);
-     }
+    static info(message, duration = 9000) {
+        return new Notification(message, 'info', duration);
+    }
 
     // o construtor é chamado quando faz o new
     constructor(message, type, duration) {
@@ -51,7 +46,7 @@ export default class Notification {
         const closeButton = document.createElement('i');
         closeButton.classList.add('close-btn', 'bx', 'bx-x');
 
-        closeButton.addEventListener('click',  (event) => {
+        closeButton.addEventListener('click', (event) => {
             this.notification.remove()
         });
 
@@ -63,57 +58,41 @@ export default class Notification {
         this.notification.appendChild(progressBar);
         progressBar.style.animationDuration = `${parseInt(duration) / 1000}s`;
 
-
     }
 
 
     mountNotificationTypeIcon(type) {
-         const typeIcon = document.createElement('i');
-         typeIcon.classList.add('bx');
+        const typeIcon = document.createElement('i');
+        typeIcon.classList.add('bx');
 
-         switch (type) {
-             case 'success': {
-                 typeIcon.classList.add('bxs-check-circle');
-                 break;
-             }
-             case 'warning': {
-                 typeIcon.classList.add('bxs-error-circle');
-                 break;
-             }
-             case 'info': {
-                 typeIcon.classList.add('bxs-info-circle');
-                 break;
-             }
-             default: {
-                 typeIcon.classList.add('bx-x-circle');
-                 break;
-             }
-         }
+        switch (type) {
+            case 'success': {
+                typeIcon.classList.add('bxs-check-circle');
+                break;
+            }
+            case 'warning': {
+                typeIcon.classList.add('bxs-error-circle');
+                break;
+            }
+            case 'info': {
+                typeIcon.classList.add('bxs-info-circle');
+                break;
+            }
+            default: {
+                typeIcon.classList.add('bx-x-circle');
+                break;
+            }
+        }
 
-         return typeIcon;
+        return typeIcon;
     }
 
-    rightTopPosition() {
-
-    }
-
-    rightBottomPosition() {
-
-    }
-
-    leftTopPosition() {
-
-    }
-
-    leftBottomPosition() {
-
-    }
 
     fire() {
         this.notificationList.appendChild(this.notification);
-        setTimeout(()=> {
-           this.notification.classList.add('fade-out');
-            setTimeout(()=> {
+        setTimeout(() => {
+            this.notification.classList.add('fade-out');
+            setTimeout(() => {
                 this.notification.remove();
             }, 700);
         }, this.duration);

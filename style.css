@@ -111,33 +111,27 @@ button {
     height: 44px;
 }
 
-
-.notification > i:last-child {
-    color: #0000004d;
-    font-size: 30px;
+.notification > div > i:last-child {
+    color: #333333;
+    font-size: 24px;
     cursor: pointer;
 }
 
-.notification > i:first-child {
-    font-size: 1.8rem;
-    color: #0000004d;
+.notification > div > i:first-child {
+    font-size: 19px;
+    color: #333333;
+    margin-left: 3px;
 }
 
-.notification > i:last-child:hover {
+.notification > div > i:last-child:hover {
     color: rgba(0, 0, 0, 0.49);
 }
 
 .notification .msg {
     text-align: start;
     width: 100%;
-    padding: 0 20px;
+    padding: 3px 20px;
     color: #000000b2;
-}
-
-div > .close-btn .bx-x {
-    color: #ce8500;
-    line-height: 40px;
-    top: 10px;
 }
 
 .notification > hr {
@@ -155,5 +149,21 @@ div > .close-btn .bx-x {
     to {
         width: 0;
     }
+}
+
+.notification.success > hr {
+    background-color: #4bce1d;
+}
+
+.notification.fail > hr {
+    background-color: rgba(255, 0, 0, 0.43);
+}
+
+.notification.warning > hr {
+    background-color: #ce8500;
+}
+
+.notification.info > hr {
+    background-color: #0047ff;
 }
 
