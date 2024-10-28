@@ -75,7 +75,7 @@ export default class Notification {
                 break;
             }
             case 'info': {
-                typeIcon.classList.add('bxs-info-circle');
+                typeIcon.classList.add('bx-info-circle');
                 break;
             }
             default: {
