@@ -3,6 +3,6 @@ import Notification from "./src/js/Notification.js";
 
 window.onload = () => {
     document.getElementById('alert_button').addEventListener('click', function () {
-        Notification.info('Notification', 700000).fire();
+        Notification.success('dfbdfberfhbrehgybrehbfjiruehguirehgrehurhgurheguhrguhreguhreughrueghruhgu', 700000).fire();
     });
 }

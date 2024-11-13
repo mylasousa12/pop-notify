@@ -1,4 +1,3 @@
-
 export default class Notification {
     static success(message, duration = 9000) {
         return new Notification(message, 'success', duration);
@@ -19,7 +18,6 @@ export default class Notification {
     // o construtor é chamado quando faz o new
     constructor(message, type, duration) {
         this.notificationList = document.getElementById('notification_list');
-        this.duration = duration;
 
         if (this.notificationList === null) {
             this.notificationList = document.createElement('ul');
@@ -27,6 +25,8 @@ export default class Notification {
 
             document.body.appendChild(this.notificationList);
         }
+
+        //this.notificationList.classList.add('dark-mode');
 
         this.notification = document.createElement('li');
         this.notification.classList.add('notification', type);
@@ -46,7 +46,7 @@ export default class Notification {
         const closeButton = document.createElement('i');
         closeButton.classList.add('close-btn', 'bx', 'bx-x');
 
-        closeButton.addEventListener('click', (event) => {
+        closeButton.addEventListener('click', () => {
             this.notification.remove()
         });
 
@@ -71,15 +71,15 @@ export default class Notification {
                 break;
             }
             case 'warning': {
-                typeIcon.classList.add('bxs-error-circle');
+                typeIcon.classList.add('bxs-error');
                 break;
             }
             case 'info': {
-                typeIcon.classList.add('bx-info-circle');
+                typeIcon.classList.add('bxs-info-circle');
                 break;
             }
             default: {
-                typeIcon.classList.add('bx-x-circle');
+                typeIcon.classList.add('bxs-error-circle');
                 break;
             }
         }
@@ -89,12 +89,12 @@ export default class Notification {
 
 
     fire() {
-        this.notificationList.appendChild(this.notification);
-        setTimeout(() => {
+        this.notification.addEventListener('animationend', () => {
             this.notification.classList.add('fade-out');
             setTimeout(() => {
                 this.notification.remove();
             }, 700);
-        }, this.duration);
+        })
+        this.notificationList.appendChild(this.notification);
     }
 }
