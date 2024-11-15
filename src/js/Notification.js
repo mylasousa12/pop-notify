@@ -1,22 +1,21 @@
 export default class Notification {
-    static success(message, duration = 9000) {
-        return new Notification(message, 'success', duration);
+    static success(title, body = null, duration = 9000) {
+        return new Notification(title, body, 'success', duration);
     }
 
-    static fail(message, duration = 9000) {
-        return new Notification(message, 'fail', duration);
+    static fail(title, body = null, duration = 9000) {
+        return new Notification(title, body, 'fail', duration);
     }
 
-    static warning(message, duration = 9000) {
-        return new Notification(message, 'warning', duration);
+    static warning(title, body = null, duration = 9000) {
+        return new Notification(title, body, 'warning', duration);
     }
 
-    static info(message, duration = 9000) {
-        return new Notification(message, 'info', duration);
+    static info(title, body = null, duration = 9000) {
+        return new Notification(title, body, 'info', duration);
     }
 
-    // o construtor é chamado quando faz o new
-    constructor(message, type, duration) {
+    constructor(title, body, type, duration) {
         this.notificationList = document.getElementById('notification_list');
 
         if (this.notificationList === null) {
@@ -25,8 +24,6 @@ export default class Notification {
 
             document.body.appendChild(this.notificationList);
         }
-
-        //this.notificationList.classList.add('dark-mode');
 
         this.notification = document.createElement('li');
         this.notification.classList.add('notification', type);
@@ -37,10 +34,12 @@ export default class Notification {
         div.appendChild(this.mountNotificationTypeIcon(type));
 
         // Create notification text element
-        const textBox = document.createElement('p');
-        textBox.classList.add('msg');
-        textBox.innerText = message; // texto dentro da tag
-        div.appendChild(textBox);
+        const titleElement = document.createElement('h2');
+        titleElement.innerText = title;
+        div.appendChild(titleElement);
+
+        const dropButton = document.createElement('i');
+        dropButton.classList.add('drop-btn', 'bx', 'bx-chevron-down');
 
         // Create notification close button
         const closeButton = document.createElement('i');
@@ -50,16 +49,23 @@ export default class Notification {
             this.notification.remove()
         });
 
+        div.appendChild(dropButton);
         div.appendChild(closeButton);
         this.notification.appendChild(div);
+
+        const bodyElement = document.createElement('p');
+        bodyElement.innerText = body;
+        this.notification.appendChild(bodyElement);
+
+        dropButton.addEventListener('click', () => {
+            bodyElement.classList.toggle('show');
+        });
 
         //Create progress bar
         const progressBar = document.createElement('hr');
         this.notification.appendChild(progressBar);
         progressBar.style.animationDuration = `${parseInt(duration) / 1000}s`;
-
     }
-
 
     mountNotificationTypeIcon(type) {
         const typeIcon = document.createElement('i');
@@ -86,7 +92,6 @@ export default class Notification {
 
         return typeIcon;
     }
-
 
     fire() {
         this.notification.addEventListener('animationend', () => {
