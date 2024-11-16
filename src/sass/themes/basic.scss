@@ -1,47 +1,98 @@
+// Variables
+$info_background: #2296f2 !default;
+$warning_background: #faac28 !default;
+$fail_background: #ff3838 !default;
+$success_background: #4caf50 !default;
+$hr_light_theme_background: #06060640 !default;
+$hr_dark_mode_background: rgba(255, 255, 255, 0.44) !default;
+$notification_dark_mode_main_background: #3c3a3c !default;
+$info_dark_mode_icon_color: #2296f2 !default;
+$warning_dark_mode_icon_color: #faac28 !default;
+$fail_dark_mode_icon_color: #ff3838 !default;
+$success_dark_mode_icon_color: #4caf50 !default;
+$info_dark_mode_background: $notification_dark_mode_main_background !default;
+$warning_dark_mode_background: $notification_dark_mode_main_background !default;
+$fail_dark_mode_background: $notification_dark_mode_main_background !default;
+$success_dark_mode_background: $notification_dark_mode_main_background;
+
+:root {
+    --info_background: #{$info_background};
+    --warning_background: #{$warning_background};
+    --fail_background: #{$fail_background};
+    --success_background: #{$success_background};
+    --hr_light_theme_background: #{$hr_light_theme_background};
+    --hr_dark_mode_background: #{$hr_dark_mode_background};
+    --notification_dark_mode_main_background: #{$notification_dark_mode_main_background};
+    --info_dark_mode_icon_color: #{$info_dark_mode_icon_color};
+    --warning_dark_mode_icon_color: #{$warning_dark_mode_icon_color};
+    --fail_dark_mode_icon_color: #{$fail_dark_mode_icon_color};
+    --success_dark_mode_icon_color: #{$success_dark_mode_icon_color};
+    --info_dark_mode_background: #{$info_dark_mode_background};
+    --warning_dark_mode_background: #{$warning_dark_mode_background};
+    --fail_dark_mode_background: #{$fail_dark_mode_background};
+    --success_dark_mode_background: #{$success_dark_mode_background};
+}
+
 #notification_list {
     > .notification {
         > hr {
-            background-color: #06060640;
+            background-color: var(--hr_light_theme_background);
         }
 
         &.info {
-            background-color: #2296f2;
+            background-color: var(--info_background);
         }
 
         &.warning {
-            background-color: #faac28;
+            background-color: var(--warning_background);
         }
 
         &.fail {
-            background-color: #ff3838;
+            background-color: var(--fail_background);
         }
 
         &.success {
-            background-color: #4caf50;
+            background-color: var(--success_background);
         }
     }
 
     &.dark-mode > .notification {
-        background-color: #3c3a3c;
+        background-color: var(--notification_dark_mode_main_background);
 
         > hr {
-            background-color: rgba(255, 255, 255, 0.44);
+            background-color: var(--hr_dark_mode_background);
         }
 
-        &.info > div > i:first-child {
-            color: #2296f2;
+        &.info {
+            background: var(--info_dark_mode_background);
+
+            > div > i:first-child {
+                color: var(--info_dark_mode_icon_color);
+            }
         }
 
-        &.warning > div > i:first-child {
-            color: #faac28;
+        &.warning {
+            background: var(--warning_dark_mode_background);
+
+            > div > i:first-child {
+                color: var(--warning_dark_mode_icon_color);
+            }
         }
 
-        &.fail > div > i:first-child {
-            color: #ff3838;
+        &.fail {
+            background: var(--fail_dark_mode_background);
+
+            > div > i:first-child {
+                color: var(--fail_dark_mode_icon_color);
+            }
         }
 
-        &.success > div > i:first-child {
-            color: #4caf50;
+        &.success {
+            background: var(--success_dark_mode_background);
+
+            > div > i:first-child {
+                color: var(--success_dark_mode_icon_color);
+            }
         }
     }
 }

@@ -1,26 +1,28 @@
 export default class Notification {
-    static success(title, body = null, duration = 9000) {
-        return new Notification(title, body, 'success', duration);
+    static success(title, body = null, duration = 9000, no_expiration = false) {
+        return new Notification(title, body, 'success', duration, no_expiration);
     }
 
-    static fail(title, body = null, duration = 9000) {
-        return new Notification(title, body, 'fail', duration);
+    static fail(title, body = null, duration = 9000, no_expiration = false) {
+        return new Notification(title, body, 'fail', duration, no_expiration);
     }
 
-    static warning(title, body = null, duration = 9000) {
-        return new Notification(title, body, 'warning', duration);
+    static warning(title, body = null, duration = 9000, no_expiration = false) {
+        return new Notification(title, body, 'warning', duration, no_expiration);
     }
 
-    static info(title, body = null, duration = 9000) {
-        return new Notification(title, body, 'info', duration);
+    static info(title, body = null, duration = 9000, no_expiration = false) {
+        return new Notification(title, body, 'info', duration, no_expiration);
     }
 
-    constructor(title, body, type, duration) {
+    constructor(title, body, type, duration, no_expiration) {
         this.notificationList = document.getElementById('notification_list');
+        this.no_expiration = no_expiration;
 
         if (this.notificationList === null) {
             this.notificationList = document.createElement('ul');
             this.notificationList.id = 'notification_list';
+            this.notificationList.classList.add('dark-mode');
 
             document.body.appendChild(this.notificationList);
         }
@@ -61,10 +63,12 @@ export default class Notification {
             bodyElement.classList.toggle('show');
         });
 
-        //Create progress bar
-        const progressBar = document.createElement('hr');
-        this.notification.appendChild(progressBar);
-        progressBar.style.animationDuration = `${parseInt(duration) / 1000}s`;
+        if (!no_expiration) {
+            //Create progress bar
+            const progressBar = document.createElement('hr');
+            this.notification.appendChild(progressBar);
+            progressBar.style.animationDuration = `${parseInt(duration) / 1000}s`;
+        }
     }
 
     mountNotificationTypeIcon(type) {
@@ -94,12 +98,15 @@ export default class Notification {
     }
 
     fire() {
-        this.notification.addEventListener('animationend', () => {
-            this.notification.classList.add('fade-out');
-            setTimeout(() => {
-                this.notification.remove();
-            }, 700);
-        })
+        if (!this.no_expiration) {
+            this.notification.addEventListener('animationend', () => {
+                this.notification.classList.add('fade-out');
+                setTimeout(() => {
+                    this.notification.remove();
+                }, 700);
+            })
+        }
         this.notificationList.appendChild(this.notification);
     }
 }
+
